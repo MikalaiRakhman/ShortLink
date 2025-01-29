@@ -1,6 +1,6 @@
-﻿namespace ShortLink.Domain
+﻿namespace ShortLink.Domain.Entities
 {
-    public class OriginalUrl
+    public class ShortUrl
     {
         public Guid Id { get; set; }
         public string Url { get; set; }
