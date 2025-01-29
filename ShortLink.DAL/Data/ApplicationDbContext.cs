@@ -10,8 +10,7 @@ namespace ShortLink.DAL.Data
         {
         }
 
-        public DbSet<OriginalUrl> OriginalUrls { get; set; }
-        public DbSet<ShortUrl> ShortUrls { get; set; }
+        public DbSet<DoubleUrl> DoubleUrls { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
