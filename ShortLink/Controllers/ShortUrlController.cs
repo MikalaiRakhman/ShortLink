@@ -3,6 +3,7 @@ using MediatR;
 using ShortLink.BL.GetOriginalUrl;
 using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DeleteDoubleUrl;
 
 namespace ShortLink.Web.Controllers
 {
@@ -37,6 +38,16 @@ namespace ShortLink.Web.Controllers
         {
             var shortUrl = await _mediator.Send(command);
             return Ok(new { shortUrl });
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteDuobleUrl(Guid id)
+        {
+            var command = new DeleteDoubleUrlCommand { Id = id };
+
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }
