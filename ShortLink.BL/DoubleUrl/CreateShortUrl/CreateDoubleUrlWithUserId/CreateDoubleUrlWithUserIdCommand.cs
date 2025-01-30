@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId
+namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId
 {
     public record CreateDoubleUrlWithUserIdCommand : IRequest<string>
     {

@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using ShortLink.BL.GetOriginalUrl;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
-using ShortLink.BL.DeleteDoubleUrl;
+using ShortLink.BL.DoubleUrl.GetOriginalUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
+using ShortLink.BL.DoubleUrl.DeleteDoubleUrl;
 
 namespace ShortLink.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ShortUrlController : Controller
+    public class ShortUrlsController : Controller
     {
         private readonly IMediator _mediator;
 
-        public ShortUrlController(IMediator mediator)
+        public ShortUrlsController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -40,7 +40,7 @@ namespace ShortLink.Web.Controllers
             return Ok(new { shortUrl });
         }
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("delete-double-url/{id:guid}")]
         public async Task<IActionResult> DeleteDuobleUrl(Guid id)
         {
             var command = new DeleteDoubleUrlCommand { Id = id };

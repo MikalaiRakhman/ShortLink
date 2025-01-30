@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using ShortLink.DAL.Data;
 
-namespace ShortLink.BL.DeleteDoubleUrl
+namespace ShortLink.BL.DoubleUrl.DeleteDoubleUrl
 {
-    public class DeleteDoubleUrlCommandHandler: IRequestHandler<DeleteDoubleUrlCommand>
+    public class DeleteDoubleUrlCommandHandler : IRequestHandler<DeleteDoubleUrlCommand>
     {
         private readonly ApplicationDbContext _context;
 
@@ -14,7 +14,7 @@ namespace ShortLink.BL.DeleteDoubleUrl
 
         public async Task Handle(DeleteDoubleUrlCommand request, CancellationToken cancellationToken)
         {
-            var doubleUrl = await _context.DoubleUrls.FindAsync(request.Id,cancellationToken);
+            var doubleUrl = await _context.DoubleUrls.FindAsync(request.Id, cancellationToken);
             Guard.AgainstNull(doubleUrl, nameof(doubleUrl));
 
             _context.DoubleUrls.Remove(doubleUrl);

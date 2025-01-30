@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShortLink.DAL.Data;
 
-namespace ShortLink.BL.GetOriginalUrl
+namespace ShortLink.BL.DoubleUrl.GetOriginalUrl
 {
     public class GetOriginalUrlCommandHandler : IRequestHandler<GetOriginalUrlCommand, string>
     {

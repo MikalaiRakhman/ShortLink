@@ -1,6 +1,5 @@
 using ShortLink.DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using ShortLink.BL.GetOriginalUrl;
 using ShortLink.DAL.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,9 +9,10 @@ using ShortLink.DAL.Identity.Enums;
 using Microsoft.OpenApi.Models;
 using ShortLink.Domain.Entities;
 using Serilog;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.Services;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.GetOriginalUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 
 
 var builder = WebApplication.CreateBuilder(args);
