@@ -1,6 +1,5 @@
 using ShortLink.DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using ShortLink.BL.GetOriginalUrl;
 using ShortLink.DAL.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,9 +9,10 @@ using ShortLink.DAL.Identity.Enums;
 using Microsoft.OpenApi.Models;
 using ShortLink.Domain.Entities;
 using Serilog;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.Services;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.GetOriginalUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,7 +63,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(GetOriginalUrlCommandHandler).Assembly,typeof(CreateDoubleUrlCommandHandler).Assembly, typeof(CreateDoubleUrlWithUserIdCommandHandler).Assembly);
-
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -114,9 +113,6 @@ builder.Services.AddAuthorization(options =>
         options.AddPolicy(role.ToString(), policy => policy.RequireRole(role.ToString()));
     }
 });
-
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

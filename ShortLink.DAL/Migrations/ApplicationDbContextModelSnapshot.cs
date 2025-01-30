@@ -344,7 +344,6 @@ namespace ShortLink.DAL.Migrations
             modelBuilder.Entity("ShortLink.Domain.Entities.User", b =>
                 {
                     b.Navigation("DoubleUrls");
-
                 });
 #pragma warning restore 612, 618
         }
