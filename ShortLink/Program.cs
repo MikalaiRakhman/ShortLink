@@ -14,7 +14,6 @@ using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.Services;
 using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -64,6 +63,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(GetOriginalUrlCommandHandler).Assembly,typeof(CreateDoubleUrlCommandHandler).Assembly, typeof(CreateDoubleUrlWithUserIdCommandHandler).Assembly);
+
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -115,8 +115,8 @@ builder.Services.AddAuthorization(options =>
     }
 });
 
-
-
+builder.Services.AddDbContext<ApplicationDbContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
