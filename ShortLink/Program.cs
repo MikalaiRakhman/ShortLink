@@ -1,6 +1,5 @@
 using ShortLink.DAL.Data;
 using Microsoft.EntityFrameworkCore;
-using ShortLink.BL.CreateShortUrl;
 using ShortLink.BL.GetOriginalUrl;
 using ShortLink.DAL.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +10,9 @@ using ShortLink.DAL.Identity.Enums;
 using Microsoft.OpenApi.Models;
 using ShortLink.Domain.Entities;
 using Serilog;
+using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
+using ShortLink.BL.Services;
+using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +34,7 @@ builder.Services.AddTransient<DbContextInitialiser>();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelManager", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "ShortLink", Version = "v1" });
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -61,12 +63,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddMediatR(cfg =>
 {
-    cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(GetOriginalUrlCommandHandler).Assembly, typeof(CreateDoubleUrlCommandHandler).Assembly);
+    cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(GetOriginalUrlCommandHandler).Assembly,typeof(CreateDoubleUrlCommandHandler).Assembly, typeof(CreateDoubleUrlWithUserIdCommandHandler).Assembly);
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<UrlService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
