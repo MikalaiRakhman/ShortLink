@@ -4,6 +4,9 @@ using ShortLink.BL.DoubleUrl.GetOriginalUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.DoubleUrl.DeleteDoubleUrl;
+using ShortLink.BL.Models;
+using ShortLink.BL.User.GetAllUsers;
+using ShortLink.BL.DoubleUrl.GetAllDoubleUrls;
 
 namespace ShortLink.Web.Controllers
 {
@@ -16,6 +19,20 @@ namespace ShortLink.Web.Controllers
         public ShortUrlsController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet("get-all-double-urls")]
+        public async Task<ActionResult<List<Domain.Entities.DoubleUrl>>> GetAllDoubleUrls()
+        {
+            var query = new GetAllDoubleUrlsQuery();
+            var doubleUrls = await _mediator.Send(query);
+
+            if (doubleUrls is null or [])
+            {
+                return NotFound("Urls was not found.");
+            }
+
+            return Ok(doubleUrls);
         }
 
         [HttpPost("get-original-url")]
