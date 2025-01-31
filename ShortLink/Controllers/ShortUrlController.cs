@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using ShortLink.BL.GetOriginalUrl;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId;
-using ShortLink.BL.CreateShortUrl.CreateDoubleUrl;
+using ShortLink.BL.DoubleUrl.GetOriginalUrl;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
+using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
+
 
 namespace ShortLink.Web.Controllers
 {
