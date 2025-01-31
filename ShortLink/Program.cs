@@ -32,6 +32,15 @@ builder.Services.AddControllers();
 
 builder.Services.AddTransient<DbContextInitialiser>();
 
+builder.Services.AddCors(options =>
+    options.AddPolicy("AllowFrontendApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    })
+);
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "ShortLink", Version = "v1" });
@@ -129,6 +138,7 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "ShortLink V1");
     });
+    app.UseCors("AllowFrontendApp");
 }
 
 app.UseHttpsRedirection();
