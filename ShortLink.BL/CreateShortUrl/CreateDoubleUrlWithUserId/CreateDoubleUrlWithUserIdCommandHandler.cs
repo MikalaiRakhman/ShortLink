@@ -10,9 +10,9 @@ namespace ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId
     public class CreateDoubleUrlWithUserIdCommandHandler : IRequestHandler<CreateDoubleUrlWithUserIdCommand, string>
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<Domain.Entities.User> _userManager;
         private readonly UrlService _urlService;
-        public CreateDoubleUrlWithUserIdCommandHandler(ApplicationDbContext context, UserManager<User> userManager, UrlService urlService)
+        public CreateDoubleUrlWithUserIdCommandHandler(ApplicationDbContext context, UserManager<Domain.Entities.User> userManager, UrlService urlService)
         {
             _context = context;
             _userManager = userManager;
@@ -25,7 +25,7 @@ namespace ShortLink.BL.CreateShortUrl.CreateDoubleUrlWithUserId
             Guard.AgainstNull(user, nameof(user));
 
             var shortUrl = _urlService.GenerateShortUrl();
-            var doubleUrl = new DoubleUrl
+            var doubleUrl = new Domain.Entities.DoubleUrl
             {
                 OriginalUrl = request.OriginalUrl,
                 ShortUrl = shortUrl,

@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using ShortLink.BL.Services;
 using ShortLink.DAL.Data;
-using ShortLink.Domain.Entities;
 
 namespace ShortLink.BL.CreateShortUrl.CreateDoubleUrl
 {
@@ -17,7 +16,7 @@ namespace ShortLink.BL.CreateShortUrl.CreateDoubleUrl
         public async Task<string> Handle(CreateDoubleUrlCommand request, CancellationToken cancellationToken)
         {
             var shortUrl = _urlService.GenerateShortUrl();
-            var doubleUrl = new DoubleUrl
+            var doubleUrl = new Domain.Entities.DoubleUrl
             {
                 OriginalUrl = request.OriginalUrl,
                 ShortUrl = shortUrl,               
