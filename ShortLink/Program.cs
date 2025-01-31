@@ -14,7 +14,6 @@ using ShortLink.BL.DoubleUrl.GetOriginalUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
@@ -123,9 +122,6 @@ builder.Services.AddAuthorization(options =>
         options.AddPolicy(role.ToString(), policy => policy.RequireRole(role.ToString()));
     }
 });
-
-
-
 
 var app = builder.Build();
 
