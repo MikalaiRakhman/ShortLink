@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using ShortLink.BL.Services;
 using ShortLink.DAL.Data;
+using System.Data;
 
 namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl
 {
@@ -15,18 +16,27 @@ namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl
         }
         public async Task<string> Handle(CreateDoubleUrlCommand request, CancellationToken cancellationToken)
         {
-            var shortUrl = _urlService.GenerateShortUrl();
-            var doubleUrl = new Domain.Entities.DoubleUrl
+            if (_urlService.IsValidUrl(request.OriginalUrl)) 
             {
-                OriginalUrl = request.OriginalUrl,
-                ShortUrl = shortUrl,
-            };
+                var shortUrl = _urlService.GenerateShortUrl();
+                var doubleUrl = new Domain.Entities.DoubleUrl
+                {
+                    OriginalUrl = request.OriginalUrl,
+                    ShortUrl = shortUrl,
+                };
 
-            _context.DoubleUrls.Add(doubleUrl);
+                _context.DoubleUrls.Add(doubleUrl);
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return shortUrl;
+                return shortUrl;
+            } 
+            else
+            {
+                throw new Exception("Url is not valid.");
+            }
+
+            
         }
     }
 }

@@ -20,22 +20,30 @@ namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId
 
         public async Task<string> Handle(CreateDoubleUrlWithUserIdCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.UserId);
-            Guard.AgainstNull(user, nameof(user));
-
-            var shortUrl = _urlService.GenerateShortUrl();
-            var doubleUrl = new Domain.Entities.DoubleUrl
+            if (_urlService.IsValidUrl(request.OriginalUrl))
             {
-                OriginalUrl = request.OriginalUrl,
-                ShortUrl = shortUrl,
-                UserId = request.UserId
-            };
+                var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == request.UserId);
+                Guard.AgainstNull(user, nameof(user));
 
-            _context.DoubleUrls.Add(doubleUrl);
+                var shortUrl = _urlService.GenerateShortUrl();
+                var doubleUrl = new Domain.Entities.DoubleUrl
+                {
+                    OriginalUrl = request.OriginalUrl,
+                    ShortUrl = shortUrl,
+                    UserId = request.UserId
+                };
 
-            await _context.SaveChangesAsync();
+                _context.DoubleUrls.Add(doubleUrl);
 
-            return shortUrl;
+                await _context.SaveChangesAsync();
+
+                return shortUrl;
+            }
+            else
+            {
+                throw new Exception("Url is not valid.");
+            }
+                
         }
     }
 }

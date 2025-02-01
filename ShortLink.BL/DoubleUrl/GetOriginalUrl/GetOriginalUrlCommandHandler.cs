@@ -15,6 +15,7 @@ namespace ShortLink.BL.DoubleUrl.GetOriginalUrl
         public async Task<string> Handle(GetOriginalUrlCommand request, CancellationToken cancellationToken)
         {
             var originalUrl = await _context.DoubleUrls.FirstOrDefaultAsync(u => u.ShortUrl == request.ShortUrl);
+            Guard.AgainstNull(originalUrl, nameof(originalUrl));
 
             return originalUrl.OriginalUrl;
         }

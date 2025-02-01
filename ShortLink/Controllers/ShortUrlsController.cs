@@ -4,8 +4,6 @@ using ShortLink.BL.DoubleUrl.GetOriginalUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.DoubleUrl.DeleteDoubleUrl;
-using ShortLink.BL.Models;
-using ShortLink.BL.User.GetAllUsers;
 using ShortLink.BL.DoubleUrl.GetAllDoubleUrls;
 
 namespace ShortLink.Web.Controllers
@@ -38,26 +36,46 @@ namespace ShortLink.Web.Controllers
         [HttpPost("get-original-url")]
         public async Task<IActionResult> GetOriginalUrl([FromBody] GetOriginalUrlCommand command)
         {
-            var originalUrl = await _mediator.Send(command);
-
-            return Ok(new { originalUrl });
+            try
+            {
+                var originalUrl = await _mediator.Send(command);
+                return Ok(new { originalUrl });
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         [HttpPost("create-short-url-with-user-id")]
         public async Task<IActionResult> CreateShortUrlWithUserId([FromBody] CreateDoubleUrlWithUserIdCommand command)
         {
-            var shortUrl = await _mediator.Send(command);
-            return Ok(new { shortUrl });
+            try
+            {
+                var shortUrl = await _mediator.Send(command);
+                return Ok(new { shortUrl });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         [HttpPost("create-short-url")]
         public async Task<IActionResult> CreateShortUrl([FromBody] CreateDoubleUrlCommand command)
         {
-            var shortUrl = await _mediator.Send(command);
-            return Ok(new { shortUrl });
+            try
+            {
+                var shortUrl = await _mediator.Send(command);
+                return Ok(new { shortUrl });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpDelete("delete-double-url/{id:guid}")]
+        [HttpDelete("delete-double-url/{id}")]
         public async Task<IActionResult> DeleteDuobleUrl(Guid id)
         {
             var command = new DeleteDoubleUrlCommand { Id = id };
