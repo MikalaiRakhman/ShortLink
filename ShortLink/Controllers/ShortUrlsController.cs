@@ -5,6 +5,7 @@ using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
 using ShortLink.BL.DoubleUrl.DeleteDoubleUrl;
 using ShortLink.BL.DoubleUrl.GetAllDoubleUrls;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShortLink.Web.Controllers
 {
@@ -47,6 +48,7 @@ namespace ShortLink.Web.Controllers
             }            
         }
 
+        [Authorize]
         [HttpPost("create-short-url-with-user-id")]
         public async Task<IActionResult> CreateShortUrlWithUserId([FromBody] CreateDoubleUrlWithUserIdCommand command)
         {
@@ -75,6 +77,7 @@ namespace ShortLink.Web.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("delete-double-url/{id}")]
         public async Task<IActionResult> DeleteDuobleUrl(Guid id)
         {

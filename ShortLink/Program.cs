@@ -13,6 +13,7 @@ using ShortLink.BL.Services;
 using ShortLink.BL.DoubleUrl.GetOriginalUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrl;
 using ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId;
+using ShortLink.BL.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,7 @@ builder.Services.AddMediatR(cfg =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<UrlService>();
+builder.Services.AddScoped<IUrlService, UrlService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
