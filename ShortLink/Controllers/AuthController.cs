@@ -46,8 +46,7 @@ namespace ShortLink.Web.Controllers
                 return BadRequest(result.Errors);
             }
 
-            await _userManager.AddToRoleAsync(appUser, Role.User.ToString());
-            await _context.Users.AddAsync(ConvertToDomainUser(model));
+            await _userManager.AddToRoleAsync(appUser, Role.User.ToString());            
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "User registered successfully!" });
@@ -93,14 +92,6 @@ namespace ShortLink.Web.Controllers
             var (newJwtToken, newRefreshToken) = await _tokenProvider.RefreshTokens(model.RefreshToken, cancellationToken);
 
             return Ok(new { Token = newJwtToken, RefreshToken = newRefreshToken });
-        }
-
-        private User ConvertToDomainUser(RegisterModel model)
-        {
-            return new User
-            {
-                Email = model.Email,
-            };
-        }
+        }        
     }
 }

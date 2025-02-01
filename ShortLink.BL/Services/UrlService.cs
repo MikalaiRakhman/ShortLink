@@ -1,8 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using ShortLink.BL.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace ShortLink.BL.Services
 {
-    public class UrlService
+    public class UrlService: IUrlService
     {
         private static readonly Regex UrlPattern = new Regex(
          @"^(https?:\/\/)([a-zA-Z0-9.-]+)+(:\d+)?(\/[\w/_.-]*)?(\?[^\s]*)?(#[^\s]*)?$",

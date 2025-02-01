@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ShortLink.BL.Services;
+using ShortLink.BL.Interfaces;
 using ShortLink.DAL.Data;
 
 namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId
@@ -10,8 +10,8 @@ namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Domain.Entities.User> _userManager;
-        private readonly UrlService _urlService;
-        public CreateDoubleUrlWithUserIdCommandHandler(ApplicationDbContext context, UserManager<Domain.Entities.User> userManager, UrlService urlService)
+        private readonly IUrlService _urlService;
+        public CreateDoubleUrlWithUserIdCommandHandler(ApplicationDbContext context, UserManager<Domain.Entities.User> userManager, IUrlService urlService)
         {
             _context = context;
             _userManager = userManager;
@@ -43,7 +43,6 @@ namespace ShortLink.BL.DoubleUrl.CreateShortUrl.CreateDoubleUrlWithUserId
             {
                 throw new Exception("Url is not valid.");
             }
-                
         }
     }
 }
